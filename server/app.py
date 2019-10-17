@@ -6,21 +6,13 @@ from flask_cors import CORS
 URLS = [
     {
         'id': uuid.uuid4().hex,
-        'title': 'On the Road',
-        'author': 'Jack Kerouac',
-        'read': True
+        'url': 'https://github.com/eddinn/',
+        'category': 'Github',
     },
     {
         'id': uuid.uuid4().hex,
-        'title': 'Harry Potter and the Philosopher\'s Stone',
-        'author': 'J. K. Rowling',
-        'read': False
-    },
-    {
-        'id': uuid.uuid4().hex,
-        'title': 'Green Eggs and Ham',
-        'author': 'Dr. Seuss',
-        'read': True
+        'url': 'https://eddinn.net/',
+        'category': 'Blog'
     }
 ]
 
@@ -53,9 +45,8 @@ def urls():
         post_data = request.get_json()
         URLS.append({
             'id': uuid.uuid4().hex,
-            'title': post_data.get('title'),
-            'author': post_data.get('author'),
-            'read': post_data.get('read')
+            'url': post_data.get('url'),
+            'category': post_data.get('category')
         })
         response_object['message'] = 'Url added!'
     else:
@@ -70,9 +61,8 @@ def single_url(url_id):
         remove_url(url_id)
         URLS.append({
             'id': uuid.uuid4().hex,
-            'title': post_data.get('title'),
-            'author': post_data.get('author'),
-            'read': post_data.get('read')
+            'url': post_data.get('url'),
+            'category': post_data.get('category'),
         })
         response_object['message'] = 'Url updated!'
     if request.method == 'DELETE':

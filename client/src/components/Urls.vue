@@ -10,20 +10,15 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Author</th>
-              <th scope="col">Read?</th>
+              <th scope="col">Url</th>
+              <th scope="col">Category</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(url, index) in urls" :key="index">
-              <td>{{ url.title }}</td>
-              <td>{{ url.author }}</td>
-              <td>
-                <span v-if="url.read">Yes</span>
-                <span v-else>No</span>
-              </td>
+              <td>{{ url.url }}</td>
+              <td>{{ url.category }}</td>
               <td>
                 <div class="btn-group" role="group">
                   <button
@@ -48,34 +43,29 @@
     </div>
     <b-modal ref="addUrlModal"
             id="url-modal"
-            title="Add a new url"
+            url="Add a new url"
             hide-footer>
       <b-form @submit="onSubmit" @reset="onReset" class="w-100">
-      <b-form-group id="form-title-group"
-                    label="Title:"
-                    label-for="form-title-input">
-          <b-form-input id="form-title-input"
+      <b-form-group id="form-url-group"
+                    label="Url:"
+                    label-for="form-url-input">
+          <b-form-input id="form-url-input"
                         type="text"
-                        v-model="addUrlForm.title"
+                        v-model="addUrlForm.url"
                         required
-                        placeholder="Enter title">
+                        placeholder="Enter url">
           </b-form-input>
         </b-form-group>
-        <b-form-group id="form-author-group"
-                      label="Author:"
-                      label-for="form-author-input">
-            <b-form-input id="form-author-input"
+        <b-form-group id="form-category-group"
+                      label="Category:"
+                      label-for="form-category-input">
+            <b-form-input id="form-category-input"
                           type="text"
-                          v-model="addUrlForm.author"
+                          v-model="addUrlForm.category"
                           required
-                          placeholder="Enter author">
+                          placeholder="Enter category">
             </b-form-input>
           </b-form-group>
-        <b-form-group id="form-read-group">
-          <b-form-checkbox-group v-model="addUrlForm.read" id="form-checks">
-            <b-form-checkbox value="true">Read?</b-form-checkbox>
-          </b-form-checkbox-group>
-        </b-form-group>
         <b-button-group>
           <b-button type="submit" variant="primary">Submit</b-button>
           <b-button type="reset" variant="danger">Reset</b-button>
@@ -84,34 +74,29 @@
     </b-modal>
     <b-modal ref="editUrlModal"
             id="url-update-modal"
-            title="Update"
+            url="Update"
             hide-footer>
       <b-form @submit="onSubmitUpdate" @reset="onResetUpdate" class="w-100">
-      <b-form-group id="form-title-edit-group"
-                    label="Title:"
-                    label-for="form-title-edit-input">
-          <b-form-input id="form-title-edit-input"
+      <b-form-group id="form-url-edit-group"
+                    label="Url:"
+                    label-for="form-url-edit-input">
+          <b-form-input id="form-url-edit-input"
                         type="text"
-                        v-model="editForm.title"
+                        v-model="editForm.url"
                         required
-                        placeholder="Enter title">
+                        placeholder="Enter url">
           </b-form-input>
         </b-form-group>
-        <b-form-group id="form-author-edit-group"
-                      label="Author:"
-                      label-for="form-author-edit-input">
-            <b-form-input id="form-author-edit-input"
+        <b-form-group id="form-category-edit-group"
+                      label="Category:"
+                      label-for="form-category-edit-input">
+            <b-form-input id="form-category-edit-input"
                           type="text"
-                          v-model="editForm.author"
+                          v-model="editForm.category"
                           required
-                          placeholder="Enter author">
+                          placeholder="Enter category">
             </b-form-input>
           </b-form-group>
-        <b-form-group id="form-read-edit-group">
-          <b-form-checkbox-group v-model="editForm.read" id="form-checks">
-            <b-form-checkbox value="true">Read?</b-form-checkbox>
-          </b-form-checkbox-group>
-        </b-form-group>
         <b-button-group>
           <b-button type="submit" variant="primary">Update</b-button>
           <b-button type="reset" variant="danger">Cancel</b-button>
@@ -130,17 +115,15 @@ export default {
     return {
       urls: [],
       addUrlForm: {
-        title: '',
-        author: '',
-        read: [],
+        url: '',
+        category: '',
       },
       message: '',
       showMessage: false,
       editForm: {
         id: '',
-        title: '',
-        author: '',
-        read: [],
+        url: '',
+        category: '',
       },
     };
   },
@@ -174,23 +157,18 @@ export default {
         });
     },
     initForm() {
-      this.addUrlForm.title = '';
-      this.addUrlForm.author = '';
-      this.addUrlForm.read = [];
+      this.addUrlForm.url = '';
+      this.addUrlForm.category = '';
       this.editForm.id = '';
-      this.editForm.title = '';
-      this.editForm.author = '';
-      this.editForm.read = [];
+      this.editForm.url = '';
+      this.editForm.category = '';
     },
     onSubmit(evt) {
       evt.preventDefault();
       this.$refs.addUrlModal.hide();
-      let read = false;
-      if (this.addUrlForm.read[0]) read = true;
       const payload = {
-        title: this.addUrlForm.title,
-        author: this.addUrlForm.author,
-        read, // property shorthand
+        url: this.addUrlForm.url,
+        category: this.addUrlForm.category,
       };
       this.addUrl(payload);
       this.initForm();
@@ -206,12 +184,9 @@ export default {
     onSubmitUpdate(evt) {
       evt.preventDefault();
       this.$refs.editUrlModal.hide();
-      let read = false;
-      if (this.editForm.read[0]) read = true;
       const payload = {
-        title: this.editForm.title,
-        author: this.editForm.author,
-        read,
+        url: this.editForm.url,
+        category: this.editForm.category,
       };
       this.updateUrl(payload, this.editForm.id);
     },

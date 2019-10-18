@@ -3,18 +3,20 @@ import uuid, os
 from flask import Flask, json, jsonify, request
 from flask_cors import CORS
 
-URLS = [
-    {
-        'id': uuid.uuid4().hex,
-        'url': 'https://github.com/eddinn/',
-        'category': 'Github',
-    },
-    {
-        'id': uuid.uuid4().hex,
-        'url': 'https://eddinn.net/',
-        'category': 'Blog'
-    }
-]
+#URLS = [
+#    {
+#        'id': uuid.uuid4().hex,
+#        'url': 'https://github.com/eddinn/',
+#        'category': 'Github',
+#    },
+#    {
+#        'id': uuid.uuid4().hex,
+#        'url': 'https://eddinn.net/',
+#        'category': 'Blog'
+#    }
+#]
+
+URLS = []
 
 # configuration
 DEBUG = True
@@ -33,6 +35,14 @@ def remove_url(url_id):
             return True
     return False
 
+def sync_to_disk():
+    with open("urls.json", "a+") as write_file:
+        json.dump(URLS, write_file)
+
+def open_file():
+    with open("urls.json", "r") as read_file:
+        URLS = json.load(read_file)
+
 # sanity check route
 @app.route('/ping', methods=['GET'])
 def ping_pong():
@@ -48,8 +58,10 @@ def urls():
             'url': post_data.get('url'),
             'category': post_data.get('category')
         })
+        sync_to_disk
         response_object['message'] = 'Url added!'
     else:
+        open_file
         response_object['urls'] = URLS
     return jsonify(response_object)
 
@@ -64,9 +76,11 @@ def single_url(url_id):
             'url': post_data.get('url'),
             'category': post_data.get('category'),
         })
+        sync_to_disk
         response_object['message'] = 'Url updated!'
     if request.method == 'DELETE':
         remove_url(url_id)
+        sync_to_disk
         response_object['message'] = 'Url removed!'
     return jsonify(response_object)
 

@@ -8,5 +8,5 @@ Imagine a place where you can go, a website of sorts, that will consist of the h
 URLDepot is a WIP (Work In Progress)
 
 # Contributors
-Edvin Dunaway
-Michael Levan
+1. Edvin Dunaway
+2. Michael Levan

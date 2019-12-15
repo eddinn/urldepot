@@ -2,8 +2,8 @@
 import os
 import sys
 import logging
-from spjald import app as application
+from urldepot import app as application
 
 
 logging.basicConfig(stream=sys.stderr)
-sys.path.insert(0, "/var/www/html/fegurdspa/html/spjald")
+sys.path.insert(0, "/var/www/html/urldepot")

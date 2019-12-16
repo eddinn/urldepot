@@ -2,7 +2,7 @@ import jwt
 from datetime import datetime
 from app import db, loginm
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask import current_app
+from flask import current_app, url_for
 from flask_login import UserMixin
 from hashlib import _hashlib
 from time import time
@@ -128,6 +128,31 @@ class User(UserMixin, db.Model):
             print("EXCEPTION FORMAT PRINT:\n{}".format(e))
             return
         return User.query.get(id)
+
+    def to_dict(self, include_email=False):
+        data = {
+            'id': self.id,
+            'username': self.username,
+            'post_count': self.posts.count(),
+            'follower_count': self.followers.count(),
+            'followed_count': self.followed.count(),
+            '_links': {
+                'self': url_for('api.get_user', id=self.id),
+                'followers': url_for('api.get_followers', id=self.id),
+                'followed': url_for('api.get_followed', id=self.id),
+                'avatar': self.avatar(128)
+            }
+        }
+        if include_email:
+            data['email'] = self.email
+        return data
+
+        def from_dict(self, data, new_user=False):
+            for field in ['username', 'email']:
+                if field in data:
+                    setattr(self, field, data[field])
+            if new_user and 'password' in data:
+                self.set_password(data['password'])
 
 
 class Post(SearchableMixin, db.Model):

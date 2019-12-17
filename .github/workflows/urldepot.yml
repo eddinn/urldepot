@@ -4,15 +4,13 @@ on:
   push:
     branches:
       - master
-    tags:
-      - prod
 
 jobs:
+
   build:
-
     runs-on: ubuntu-latest
-
     steps:
+    - continue-on-error: false
     - uses: actions/checkout@v1
     - name: Set up Python 3.7
       uses: actions/setup-python@v1
@@ -30,24 +28,29 @@ jobs:
         flake8 . --exclude=venv*,migrations* --count --select=E9,F63,F7,F82 --ignore=E402,F401 --show-source --statistics
         # --exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --exclude=venv*,migrations* --count --ignore=E402,F401 --max-complexity=10 --max-line-length=127 --statistics
-    #- name: Test with pytest
-    #  run: |
-
     - name: Run tests
       run: |
         python tests.py
         #    pip install pytest
         #    pytest
-    - name: Deploy
-      run: |
-        # make the ssh key available and access the server for git pull
-        mkdir -p ~/.ssh
-        chmod 700 ~/.ssh
-        echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-        echo -e "$URLDEPOT_PRIV_SSH_KEY" >> ~/.ssh/id_rsa
-        echo -e "$URLDEPOT_PUB_SSH_KEY" >> ~/.ssh/id_rsa.pub
-        chmod 600 ~/.ssh/id_rsa
-        chmod 644 ~/.ssh/id_rsa.pub
-        ssh-add
-        echo "Deploying to server."
-        ssh -t -p 2255 urldepot@urldepot.net -i ~/.ssh/id_rsa 'cd urldepot && git pull && sudo chown -R www-data:urldepot *'
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - continue-on-error: false
+      - uses: actions/checkout@v1
+      - name: Deploy
+        run: |
+          # sudo apt -y install openssh-client
+          # make the ssh key available and access the server for git pull
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+          echo -e "$URLDEPOT_PRIV_SSH_KEY" > ~/.ssh/id_rsa
+          echo -e "$URLDEPOT_PUB_SSH_KEY" > ~/.ssh/id_rsa.pub
+          chmod 600 ~/.ssh/id_rsa
+          chmod 644 ~/.ssh/id_rsa.pub
+          ssh-add
+          echo "Deploying to server."
+          ssh -t -p 2255 urldepot@urldepot.net -i ~/.ssh/id_rsa 'cd urldepot && git pull && sudo chown -R www-data:urldepot *'

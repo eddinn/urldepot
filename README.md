@@ -1,6 +1,6 @@
-![URLDepot](https://github.com/eddinn/urldepot/workflows/URLDepot/badge.svg) ![GitHub](https://img.shields.io/github/license/eddinn/urldepot)
-
 # URLDepot
+
+![URLDepot](https://github.com/eddinn/urldepot/workflows/URLDepot/badge.svg) ![GitHub](https://img.shields.io/github/license/eddinn/urldepot)
 
 URLDepot is a website for all of the hottest topics including DevOps, Cloud Engineering, Systems Engineering, Network Engineering and all kinds of programming.
 

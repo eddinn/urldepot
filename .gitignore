@@ -59,6 +59,7 @@ db.sqlite3
 # Flask stuff:
 instance/
 .webassets-cache
+migrations
 
 # Scrapy stuff:
 .scrapy
@@ -82,6 +83,7 @@ celerybeat-schedule
 *.sage.py
 
 # Environments
+.flaskenv
 .env
 .venv
 env/

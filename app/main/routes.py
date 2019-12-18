@@ -17,7 +17,6 @@ def before_request():
 # Routes
 @bp.route('/', methods=['GET', 'POST'])
 @bp.route('/index', methods=['GET', 'POST'])
-@login_required
 def index():
     page = request.args.get('page', 1, type=int)
     posts = current_user.followed_posts().paginate(

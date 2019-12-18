@@ -60,7 +60,7 @@ db.sqlite3
 instance/
 .webassets-cache
 migrations
-
+app.db
 # Scrapy stuff:
 .scrapy
 

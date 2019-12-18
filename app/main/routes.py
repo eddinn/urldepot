@@ -18,16 +18,20 @@ def before_request():
 @bp.route('/', methods=['GET', 'POST'])
 @bp.route('/index', methods=['GET', 'POST'])
 def index():
-    page = request.args.get('page', 1, type=int)
-    posts = current_user.followed_posts().paginate(
-        page, current_app.config['POSTS_PER_PAGE'], False)
-    next_url = url_for('main.index', page=posts.next_num) \
-        if posts.has_next else None
-    prev_url = url_for('main.index', page=posts.prev_num) \
-        if posts.has_prev else None
-    return render_template('index.html', title='Home',
-                           posts=posts.items, next_url=next_url,
-                           prev_url=prev_url)
+    if current_user.is_authenticated:
+        page = request.args.get('page', 1, type=int)
+        posts = current_user.followed_posts().paginate(
+            page, current_app.config['POSTS_PER_PAGE'], False)
+        next_url = url_for('main.index', page=posts.next_num) \
+            if posts.has_next else None
+        prev_url = url_for('main.index', page=posts.prev_num) \
+            if posts.has_prev else None
+        return render_template('index.html', title='Home',
+                               posts=posts.items, next_url=next_url,
+                               prev_url=prev_url)
+    else:
+        posts = Post.query.order_by(Post.timestamp.desc()).all()
+        return render_template('index.html', title='Explore', posts=posts)
 
 
 @bp.route('/addpost', methods=['GET', 'POST'])

@@ -1,5 +1,7 @@
 # URLDepot
 
+>NOTICE: This is the staging branch for testing before master merge, keep this branch alive and well
+
 ![URLDepot](https://github.com/eddinn/urldepot/workflows/URLDepot/badge.svg) ![GitHub](https://img.shields.io/github/license/eddinn/urldepot)
 
 URLDepot is a website for all of the hottest topics including DevOps, Cloud Engineering, Systems Engineering, Network Engineering and all kinds of programming.

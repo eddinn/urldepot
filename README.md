@@ -16,10 +16,10 @@ URLDepot is a WIP (Work In Progress)
 
 ### Contributors
 
-1. [Brandon Nistor](https://github.com/minesskylineGTR)
-2. [Edvin Dunaway](https://github.com/eddinn)
-3. [Einar Sigurdsson](https://github.com/Incurso)
-4. [Michael Levan](https://github.com/AdminTurnedDevOps)
-5. [Phil Afable](https://github.com/pafable)
-6. [Tom Hatzer](https://github.com/tomhatzer)
-7. [William Spires](https://github.com/villChurch)
+ 1. [Brandon Nistor](https://github.com/minesskylineGTR)
+ 2. [Edvin Dunaway](https://github.com/eddinn)
+ 3. [Einar Sigurdsson](https://github.com/Incurso)
+ 4. [Michael Levan](https://github.com/AdminTurnedDevOps)
+ 5. [Phil Afable](https://github.com/pafable)
+ 6. [Tom Hatzer](https://github.com/tomhatzer)
+ 7. [William Spires](https://github.com/villChurch)

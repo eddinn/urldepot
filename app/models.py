@@ -203,24 +203,14 @@ class User(UserMixin, PaginatedAPIMixin, db.Model):
 
 
 class Post(SearchableMixin, db.Model):
-    __searchable__ = ['clientname', 'clientss', 'clientemail', 'clientphone',
-                      'clientaddress', 'clientcity', 'clientzip', 'clientinfo']
+    __searchable__ = ['url', 'categories', 'tags', 'info']
     id = db.Column(db.Integer, primary_key=True)
-    clientname = db.Column(db.String(64), index=True)
-    clientss = db.Column(db.String(11), index=True, unique=True)
-    clientemail = db.Column(db.String(128), index=True, unique=True)
-    clientphone = db.Column(db.String(24), index=True)
-    clientaddress = db.Column(db.String(100), index=True)
-    clientcity = db.Column(db.String(32), index=True)
-    clientzip = db.Column(db.String(8), index=True)
-    clientinfo = db.Column(db.Text)
+    url = db.Column(db.String(254), index=True)
+    categories = db.Column(db.String(32), index=True, unique=True)
+    tags = db.Column(db.String(32), index=True, unique=True)
+    info = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    # def __repr__(self):
-    #    return '{}'.format(self.clientname, self.clientss,
-    #                       self.clientemail, self.clientphone,
-    #                       self.clientaddress, self.clientcity,
-    #                       self.clientzip, self.clientinfo)
     def __repr__(self):
-        return '<Post {}>'.format(self.clientname)
+        return '<Post {}>'.format(self.url)

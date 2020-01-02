@@ -175,12 +175,12 @@ class User(UserMixin, PaginatedAPIMixin, db.Model):
             data['email'] = self.email
         return data
 
-        def from_dict(self, data, new_user=False):
-            for field in ['username', 'email']:
-                if field in data:
-                    setattr(self, field, data[field])
-            if new_user and 'password' in data:
-                self.set_password(data['password'])
+    def from_dict(self, data, new_user=False):
+        for field in ['username', 'email']:
+            if field in data:
+                setattr(self, field, data[field])
+        if new_user and 'password' in data:
+            self.set_password(data['password'])
 
     def get_token(self, expires_in=3600):
         now = datetime.utcnow()

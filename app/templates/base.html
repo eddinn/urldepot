@@ -53,6 +53,11 @@
         {% endwith %}
         {% block app_content %}{% endblock %}
     </div>
+    <div class="container">
+        {% block footer %}
+            <footer>&copy; {{ moment().format('YYYY') }} - URLDepot.net</footer>
+        {% endblock %}
+    </div>
 {% endblock %}
 {% block scripts %}
     {{ super() }}

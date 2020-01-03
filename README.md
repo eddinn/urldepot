@@ -1,12 +1,8 @@
 # URLDepot
 
-<<<<<<< HEAD
->NOTICE: This is the staging branch for testing before master merge, keep this branch alive and well
+> NOTICE: This is the staging branch for testing before master merge, keep this branch alive and well
 
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/eddinn/urldepot/URLDepot/staging?label=Build%3A%20staging) ![URLDepot](https://github.com/eddinn/urldepot/workflows/URLDepot/badge.svg) ![GitHub](https://img.shields.io/github/license/eddinn/urldepot)
-=======
 ![URLDepot](https://github.com/eddinn/urldepot/workflows/URLDepot/badge.svg) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/9ac2b3a7b37d4e03aaa15c1491cfea4c)](https://www.codacy.com/manual/Eddinn/urldepot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=eddinn/urldepot&amp;utm_campaign=Badge_Grade) ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/eddinn/urldepot/URLDepot/staging?label=Build%3A%20staging) ![GitHub](https://img.shields.io/github/license/eddinn/urldepot)
->>>>>>> c85ac4e6c8a87c7dfb316902e9f56f41fdc41847
 
 URLDepot is a website for all of the hottest topics including DevOps, Cloud Engineering, Systems Engineering, Network Engineering and all kinds of programming.
 

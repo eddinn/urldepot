@@ -3,25 +3,22 @@
         <tr>
             <td width="70px">
                 <div style="height: auto; width: 300px;">
-                    <b>Client id: {{ post.id }}</b><br />
-                    <a href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }} </a>
-                    added: {{ moment(post.timestamp).fromNow() }}<br />
+                    <b>URL id: {{ post.id }}</b> - Category: {{ post.categories }} - Tags: {{ post.tags }}<br />
+                    <!-- <a href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }} </a>
+                    added: {{ moment(post.timestamp).fromNow() }}<br /> -->
                     <hr style="width: auto; text-align: left; margin-left:20px; margin-top: 5px; margin-bottom: 5px; margin-right: 180px;">
-                    {{ post.clientname }}<br />
-                    {{ post.clientss }}<br />
-                    {{ post.clientemail }}<br />
-                    {{ post.clientphone }}<br />
-                    {{ post.clientaddress }}<br />
-                    {{ post.clientzip }}, {{ post.clientcity }}<br /><br />
+                    <a href="{{ post.url }}" target="_blank">{{ post.url }}</a><br /><br />
                     <p>
+                        {% if current_user.is_authenticated %}
                         <a href="{{ url_for('main.editpost', id=post.id) }}"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;&nbsp;<a href="{{ url_for('main.deletepost', id=post.id) }}"><i class="fas fa-trash-alt"></i></a>
+                        {% endif %}
                     </p>
                 </div>
             </td>
             <td>
                 <div style="height: auto; width: 400px;">
-                    <b>Client info:</b><br />
-                    {{ post.clientinfo|safe }}<br />
+                    <b>Info:</b><br />
+                    {{ post.info|safe }}<br />
                 </div>
             </td>
         </tr>

@@ -17,11 +17,14 @@ def before_request():
 # Routes
 @bp.route('/', methods=['GET', 'POST'])
 @bp.route('/index', methods=['GET', 'POST'])
-@login_required
 def index():
     page = request.args.get('page', 1, type=int)
-    posts = current_user.followed_posts().paginate(
-        page, current_app.config['POSTS_PER_PAGE'], False)
+    if current_user.is_authenticated:
+        posts = current_user.followed_posts().paginate(
+            page, current_app.config['POSTS_PER_PAGE'], False)
+    else:
+        posts = Post.query.order_by(Post.timestamp.desc()).paginate(
+            page, current_app.config['POSTS_PER_PAGE'], False)
     next_url = url_for('main.index', page=posts.next_num) \
         if posts.has_next else None
     prev_url = url_for('main.index', page=posts.prev_num) \
@@ -37,18 +40,14 @@ def addpost():
     form = PostForm()
     if form.validate_on_submit():
         if form.submit.data:
-            post = Post(clientname=form.clientname.data,
-                        clientss=form.clientss.data,
-                        clientemail=form.clientemail.data,
-                        clientphone=form.clientphone.data,
-                        clientaddress=form.clientaddress.data,
-                        clientzip=form.clientzip.data,
-                        clientcity=form.clientcity.data,
-                        clientinfo=form.clientinfo.data,
+            post = Post(url=form.url.data,
+                        categories=form.categories.data,
+                        tags=form.tags.data,
+                        info=form.info.data,
                         author=current_user)
             db.session.add(post)
             db.session.commit()
-            flash('Client data successfully added!')
+            flash('URL data successfully added!')
             return redirect(url_for('main.addpost'))
         else:
             return redirect(url_for('main.index'))

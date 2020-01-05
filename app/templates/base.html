@@ -20,7 +20,7 @@
                     <li><a href="{{ url_for('main.index') }}"><i class="fas fa-home"></i> Home</a></li>
                     {% if current_user.is_authenticated %}
                     <li><a href="{{ url_for('main.explore') }}"><i class="fas fa-globe"></i> Explore</a></li>
-                    <li><a href="{{ url_for('main.addpost') }}"><i class="fas fa-plus"></i> Add post</a></li>
+                    <li><a href="{{ url_for('main.addpost') }}"><i class="fas fa-plus"></i> Add URL</a></li>
                     {% endif %}
                 </ul>
                 {% if g.search_form %}
@@ -52,6 +52,11 @@
         {% endif %}
         {% endwith %}
         {% block app_content %}{% endblock %}
+    </div>
+    <div class="container">
+        {% block footer %}
+            <footer>&copy; {{ moment().format('YYYY') }} - URLDepot.net</footer>
+        {% endblock %}
     </div>
 {% endblock %}
 {% block scripts %}

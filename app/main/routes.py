@@ -4,8 +4,9 @@ from app.main.forms import PostForm
 from app.models import User, Post
 from app.main.forms import SearchForm
 from flask import request, render_template, flash, redirect, \
-    url_for, current_app, g
+    url_for, current_app, g, jsonify
 from flask_login import current_user, login_required
+from Link import Link
 
 
 @bp.before_app_request
@@ -151,3 +152,12 @@ def search():
 def explore():
     posts = Post.query.order_by(Post.timestamp.desc()).all()
     return render_template('index.html', title='Explore', posts=posts)
+
+
+@bp.route("/azuredevops", methods=['GET'])
+def azureDevOps():
+    try:
+        return jsonify(Link.AzureDevOpsScraper())
+
+    except Exception as e:
+        print(e)

@@ -203,12 +203,15 @@ class User(UserMixin, PaginatedAPIMixin, db.Model):
 
 
 class Post(SearchableMixin, db.Model):
-    __searchable__ = ['url', 'categories', 'tags', 'info']
+    __searchable__ = ['url', 'categories', 'tags', 'info',
+                      'pdf_filename', 'pdf_url']
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String(254), index=True)
     categories = db.Column(db.String(32), index=True, unique=True)
     tags = db.Column(db.String(32), index=True, unique=True)
     info = db.Column(db.Text)
+    pdf_filename = db.Column(db.String, default=None, nullable=True)
+    pdf_url = db.Column(db.String, default=None, nullable=True)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 

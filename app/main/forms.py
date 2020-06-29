@@ -1,5 +1,6 @@
 from flask import request
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms import StringField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Optional, Length
 
@@ -24,3 +25,9 @@ class SearchForm(FlaskForm):
         if 'csrf_enabled' not in kwargs:
             kwargs['csrf_enabled'] = False
         super(SearchForm, self).__init__(*args, **kwargs)
+
+
+class UploadForm(FlaskForm):
+    pdf = FileField(validators=[FileAllowed('pdf', 'PDF Only!'),
+                    FileRequired('File was empty!')])
+    submit = SubmitField('Upload')

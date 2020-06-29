@@ -10,6 +10,7 @@ from flask_bootstrap import Bootstrap
 from flask_mail import Mail
 from flask_moment import Moment
 from elasticsearch import Elasticsearch
+from flask_uploads import UploadSet, configure_uploads, patch_request_class
 
 
 db = SQLAlchemy()
@@ -32,6 +33,11 @@ def create_app(config_class=Config):
     bootstrap.init_app(app)
     mail.init_app(app)
     moment.init_app(app)
+
+    # Configure the image uploading via Flask-Uploads
+    pdfs = UploadSet('images', ['pdf'])
+    configure_uploads(app, pdfs)
+    patch_request_class(app)
 
     app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) \
         if app.config['ELASTICSEARCH_URL'] else None

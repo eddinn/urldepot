@@ -210,8 +210,8 @@ class Post(SearchableMixin, db.Model):
     categories = db.Column(db.String(32), index=True, unique=True)
     tags = db.Column(db.String(32), index=True, unique=True)
     info = db.Column(db.Text)
-    pdf_filename = db.Column(db.String, default=None, nullable=True)
-    pdf_url = db.Column(db.String, default=None, nullable=True)
+    pdf_filename = db.Column(db.String(254), default=None, nullable=True)
+    pdf_url = db.Column(db.String(254), default=None, nullable=True)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 

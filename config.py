@@ -32,6 +32,6 @@ class Config(object):
     # SERVER_NAME = os.environ.get('SERVER_NAME')
     # Uploads
     UPLOADS_DEFAULT_DEST = '/app/main/static/uploads/'
-    UPLOADS_DEFAULT_URL = 'http://localhost:5000/static/uploads/'
+    UPLOADS_DEFAULT_URL = 'http://localhost/static/uploads/'
     UPLOADED_PDF_DEST = '/app/main/static/uploads/'
-    UPLOADED_PDF_URL = 'http://localhost:5000/static/uploads/'
+    UPLOADED_PDF_URL = 'http://localhost/static/uploads/'

@@ -3,11 +3,12 @@
         <tr>
             <td width="70px">
                 <div style="height: auto; width: 300px;">
-                    <b>URL id: {{ post.id }}</b> - Category: {{ post.categories }} - Tags: {{ post.tags }}<br />
-                    <!-- <a href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }} </a>
-                    added: {{ moment(post.timestamp).fromNow() }}<br /> -->
+                    <!-- <a href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }} </a>  -->
                     <hr style="width: auto; text-align: left; margin-left:20px; margin-top: 5px; margin-bottom: 5px; margin-right: 180px;">
-                    <a href="{{ post.url }}" target="_blank">{{ post.url }}</a><br /><br />
+                    <a href="{{ post.url }}" target="_blank">{{ post.url }}</a><br />
+                    Added: {{ moment(post.timestamp).fromNow() }}<br />
+                    Category: {{ post.categories }}<br />
+                    Tags: {{ post.tags }}<br /><br />
                     <p>
                         {% if current_user.is_authenticated %}
                         <a href="{{ url_for('main.editpost', id=post.id) }}"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;&nbsp;<a href="{{ url_for('main.deletepost', id=post.id) }}"><i class="fas fa-trash-alt"></i></a>
